@@ -22,21 +22,23 @@ class App extends React.Component {
 	}
 
 	changeCurrent(val) {
-		this.setState({currentVid: val});
+		player.loadVideoById(val.id.videoId);
+	    this.setState({currentVid: val});
 	}
 
 	autoPlaySelect() {
 		this.setState({autoplay: !this.state.autoplay});
-		setTimeout(() => {
-			console.log(this.state.autoplay);
-		}, 1000);
+	}
+
+	endedCheck() {
+		console.log('what');
 	}
 
 	render() {
 	  return <div>
 	    <Nav searchOp={{mySearch: this.populateVideos.bind(this)}} />
 	    <div className="col-md-7">
-	      <VideoPlayer video={this.state.currentVid}/>
+	      <VideoPlayer endCheck={{whenEnded: this.endedCheck.bind(this)}} video={this.state.currentVid}/>
 	    </div>
 	    <div className="col-md-5">
 	      <form action="demo_form.asp" method="get">
